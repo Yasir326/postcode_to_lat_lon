@@ -15,12 +15,14 @@ app.get("/postcode/:postcode", async (req, res) => {
   });
 });
 
-//Return lat lon from an array of postcodes
 app.post("/postcodes", async (req, res) => {
   const postCodes = req.body.postcodes;
-  await getLatLonForMultiplePostCodes(postCodes).then((response) => {
-    res.json(response);
-  });
+  const result = await getAdressForMultiplePostCodes(postCodes).then(
+    (response) => {
+      return returnLatLonObj(response.result);
+    }
+  );
+  res.json(result);
 });
 
 //Return the lat and lon for a single postcode
@@ -39,14 +41,15 @@ export async function getLatlonFromPostcode(postcode) {
   }
 }
 
-export async function getLatLonForMultiplePostCodes(...postcodes) {
+//Return array of addresses from Postcode array
+export async function getAdressForMultiplePostCodes(postcodes) {
   try {
     const res = await axios
       .post("https://api.postcodes.io/postcodes", {
         postcodes,
       })
       .then((response) => {
-        return response.data.result;
+        return response.data;
       });
     return res;
   } catch (error) {
@@ -54,6 +57,14 @@ export async function getLatLonForMultiplePostCodes(...postcodes) {
   }
 }
 
-getLatLonForMultiplePostCodes("OX49 5NU", "M32 0JG", "NE30 1DP");
+//Grab Latitude and Longitude and convert Array to object
+function returnLatLonObj(arr) {
+  return arr.reduce((prev, curr) => {
+    prev[curr.result.latitude] = curr.result.longitude;
+    return prev;
+  }, {});
+}
+
+// getLatLonForMultiplePostCodes("OX49 5NU", "M32 0JG", "NE30 1DP");
 
 export default app;
