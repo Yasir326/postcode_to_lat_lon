@@ -14,6 +14,14 @@ app.get("/postcode/:postcode", async (req, res) => {
   });
 });
 
+app.post("/postcodes", async (req, res) => {
+  const postCodes = req.body.postcodes;
+  await getLatLonForMultiplePostCodes(postCodes).then((response) => {
+    console.log(response);
+    res.send(response);
+  });
+});
+
 //Return the lat and lon for a single postcode
 export async function getLatlonFromPostcode(postcode) {
   try {
@@ -43,7 +51,5 @@ export async function getLatLonForMultiplePostCodes(...postcodeArr) {
     console.error(error);
   }
 }
-
-getLatLonForMultiplePostCodes("OX49 5NU", "M32 0JG", "NE30 1DP");
 
 export default app;
