@@ -2,6 +2,7 @@ import * as express from "express";
 import * as axios from "axios";
 
 const app = express();
+app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("Server is up and running 🤓");
@@ -15,12 +16,10 @@ app.get("/postcode/:postcode", async (req, res) => {
 });
 
 //Return lat lon from an array of postcodes
-app.post("/postcodes", (req, res) => {
+app.post("/postcodes", async (req, res) => {
   const postCodes = req.body.postcodes;
-  getLatLonForMultiplePostCodes(postCodes).then((response) => {
-    const result = { ...response };
-    console.log(result);
-    res.json(result);
+  await getLatLonForMultiplePostCodes(postCodes).then((response) => {
+    res.json(response);
   });
 });
 
@@ -42,16 +41,19 @@ export async function getLatlonFromPostcode(postcode) {
 
 export async function getLatLonForMultiplePostCodes(...postcodes) {
   try {
-    const res = await axios.post("https://api.postcodes.io/postcodes", {
-      postcodes: postcodes,
-    });
-    const resultArr = res.data.result;
-    return resultArr;
+    const res = await axios
+      .post("https://api.postcodes.io/postcodes", {
+        postcodes,
+      })
+      .then((response) => {
+        return response.data.result;
+      });
+    return res;
   } catch (error) {
     console.error(error);
   }
 }
 
-// getLatLonForMultiplePostCodes("OX49 5NU", "M32 0JG", "NE30 1DP");
+getLatLonForMultiplePostCodes("OX49 5NU", "M32 0JG", "NE30 1DP");
 
 export default app;
