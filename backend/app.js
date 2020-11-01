@@ -14,6 +14,7 @@ app.get("/postcode/:postcode", async (req, res) => {
   });
 });
 
+//Return the lat and lon for a single postcode
 export async function getLatlonFromPostcode(postcode) {
   try {
     const res = await axios
@@ -28,5 +29,21 @@ export async function getLatlonFromPostcode(postcode) {
     console.error(error);
   }
 }
+
+//Return lat lon from an array of postcodes
+export async function getLatLonForMultiplePostCodes(...postcodeArr) {
+  const payload = postcodeArr;
+  try {
+    const res = await axios.post("https://api.postcodes.io/postcodes", {
+      postcodes: payload,
+    });
+    console.log(res.data.result);
+    return res;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+getLatLonForMultiplePostCodes("OX49 5NU", "M32 0JG", "NE30 1DP");
 
 export default app;
