@@ -2,8 +2,8 @@ import { getLatlonFromPostcode } from "../app";
 
 describe("getLatlonFromPostcode", () => {
   test("it should return latlon for given postcode", async () => {
-    const latlon = await getLatlonFromPostcode("1234");
-    expect(latlon).toEqual("51.5074, 0.1278");
+    const latlon = await getLatlonFromPostcode("sw161sz");
+    expect(latlon).toEqual("51.425706, -0.142173");
   });
 });
 
