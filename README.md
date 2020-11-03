@@ -24,7 +24,9 @@ the latitudes and longitudes of multiple postcodes.
 
 `curl --location --request GET 'http://localhost:3000/postcode/NE301DP'`
 
-````curl --location --request POST 'localhost:3000/postcodes' \
+``curl --location --request POST 'localhost:3000/postcodes' \`
+
+````
 --header 'Content-Type: application/json' \
 --data-raw '{
 "postcodes" : ["OX49 5NU", "M32 0JG", "NE30 1DP"]
