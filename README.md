@@ -25,13 +25,10 @@ the latitudes and longitudes of multiple postcodes.
 `curl --location --request GET 'http://localhost:3000/postcode/NE301DP'`
 
 ``curl --location --request POST 'localhost:3000/postcodes' \`
-
-````
 --header 'Content-Type: application/json' \
 --data-raw '{
 "postcodes" : ["OX49 5NU", "M32 0JG", "NE30 1DP"]
 }```
-
 
 ## Testing
 
@@ -42,4 +39,7 @@ You can run the tests locally my running the command `npm run test`
 
 Using the command `npm run build` will compile down to ES5 into dist folder. Then using
 the command `npm run test` will serve the compiled code.
-````
+
+```
+
+```
