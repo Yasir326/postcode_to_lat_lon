@@ -15,6 +15,7 @@ export const getLatLonForMultiplePostcodes = (postcodes) => {
     postcodes,
   })
     .then((response) => {
+      console.log(returnLatLonObj(response.data.result));
       return returnLatLonObj(response.data.result);
     })
     .catch((error) => {

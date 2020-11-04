@@ -56,17 +56,6 @@ describe("validateMultiplePostcodes", () => {
 });
 
 describe("validateMultiplePostcodes", () => {
-  test("It should return true when all items are valid postcodes", () => {
-    const validPostcode = validateMultiplePostcodes([
-      "OX49 5NU",
-      "M32 0JG",
-      "NE30 1DP",
-    ]);
-    expect(validPostcode).toBeTruthy();
-  });
-});
-
-describe("validateMultiplePostcodes", () => {
   test("It should return false when 1st item is an invalid postcode", () => {
     const validPostcode = validateMultiplePostcodes([
       "OX49 5NU22222",

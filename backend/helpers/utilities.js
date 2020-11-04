@@ -1,8 +1,10 @@
 import { postcodeRegex } from "../helper_data/postcode_regex";
 export const returnLatLonObj = (arr) => {
-  return Object.fromEntries(
-    arr.map(({ result: { latitude, longitude } }) => [latitude, longitude])
-  );
+  return arr.map(({ result: { postcode, latitude, longitude } }) => ({
+    postcode,
+    latitude,
+    longitude,
+  }));
 };
 
 export const validatePostcode = (postcode) => {
