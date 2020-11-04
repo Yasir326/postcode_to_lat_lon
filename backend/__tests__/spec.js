@@ -1,5 +1,9 @@
-import { returnLatLonObj, validatePostcode } from "../helpers/utilities";
-import { result } from "../test_data/test_address_array";
+import {
+  returnLatLonObj,
+  validatePostcode,
+  validateMultiplePostcodes,
+} from "../helpers/utilities";
+import { result } from "../helper_data/test_address_array";
 
 describe("returnLatLonObj", () => {
   test("it should Latitude and Longitude from an Address array", () => {
@@ -40,49 +44,57 @@ describe("validatePostcode", () => {
   });
 });
 
-describe("validatePostcode", () => {
+describe("validateMultiplePostcodes", () => {
   test("It should return true when multiple valid postcode entered", () => {
-    const validPostcode = validatePostcode("OX49 5NU", "M32 0JG", "NE30 1DP");
+    const validPostcode = validateMultiplePostcodes([
+      "OX49 5NU",
+      "M32 0JG",
+      "NE30 1DP",
+    ]);
     expect(validPostcode).toBeTruthy();
   });
 });
 
-describe("validatePostcode", () => {
+describe("validateMultiplePostcodes", () => {
   test("It should return true when all items are valid postcodes", () => {
-    const validPostcode = validatePostcode("OX49 5NU", "M32 0JG", "NE30 1DP");
+    const validPostcode = validateMultiplePostcodes([
+      "OX49 5NU",
+      "M32 0JG",
+      "NE30 1DP",
+    ]);
     expect(validPostcode).toBeTruthy();
   });
 });
 
-describe("validatePostcode", () => {
+describe("validateMultiplePostcodes", () => {
   test("It should return false when 1st item is an invalid postcode", () => {
-    const validPostcode = validatePostcode(
+    const validPostcode = validateMultiplePostcodes([
       "OX49 5NU22222",
       "M32 0JG",
-      "NE30 1DP"
-    );
+      "NE30 1DP",
+    ]);
     expect(validPostcode).toBeFalsy();
   });
 });
 
-describe("validatePostcode", () => {
+describe("validateMultiplePostcodes", () => {
   test("It should return false when 2nd item is an invalid postcode", () => {
-    const validPostcode = validatePostcode(
+    const validPostcode = validateMultiplePostcodes([
       "OX49 5NU",
       "M32 0JGGGGG",
-      "NE30 1DP"
-    );
+      "NE30 1DP",
+    ]);
     expect(validPostcode).toBeFalsy();
   });
 });
 
-describe("validatePostcode", () => {
+describe("validateMultiplePostcodes", () => {
   test("It should return false when last item is an invalid postcode", () => {
-    const validPostcode = validatePostcode(
+    const validPostcode = validateMultiplePostcodes([
       "OX49 5NU",
       "M32 0JG",
-      "NE30 1DPPPP"
-    );
+      "NE30 1DPPPP",
+    ]);
     expect(validPostcode).toBeFalsy();
   });
 });
